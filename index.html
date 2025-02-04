@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be Mine?</title>
+  <style>
+    /* Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+
+    /* Body Styling */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    /* Gradient Background Animation */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Container Styling */
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      max-width: 90%;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      color: #d14d72;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: none;
+      border: none;
+      font-size: 4rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.2);
+    }
+
+    #proposalMessage {
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    #proposalMessage.visible {
+      opacity: 1;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #proposalMessage.visible {
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Slideshow Container */
+    .slideshow {
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .slideshow img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow img.active {
+      opacity: 1;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        font-size: 3rem;
+      }
+
+      .slideshow {
+        width: 300px;
+        height: 400px; /* Increased height for mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music -->
+  <audio id="backgroundMusic" loop>
+    <source src="./audioclip-1663149681000-61533.mp4" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1>Click the Heart ❤️</h1>
+    <button id="proposeButton">❤️</button>
+    <div id="proposalMessage" class="hidden">
+      <h2>Will You Be My Forever?</h2>
+      <p>When I see you in a saree, it feels like time stops. Seeing you in it takes my breath away—will you be mine?💖</p>
+    </div>
+
+    <!-- Slideshow -->
+    <div class="slideshow">
+      <img src="./Screenshot from 2025-02-05 01-40-58.png" alt="Memory 1" class="active">
+      <img src="./Screenshot from 2025-02-05 01-41-07.png" alt="Memory 2">
+      <img src="./Screenshot from 2025-02-05 01-41-14.png" alt="Memory 3">
+      <img src="./Screenshot from 2025-02-05 01-41-20.png" alt="Memory 4">
+      <img src="./Screenshot from 2025-02-05 01-41-27.png" alt="Memory 5">
+    </div>
+  </div>
+
+  <script>
+    // Show Proposal Message
+    document.getElementById('proposeButton').addEventListener('click', function() {
+      const message = document.getElementById('proposalMessage');
+      message.classList.remove('hidden');
+      setTimeout(() => {
+        message.classList.add('visible');
+      }, 100);
+
+      // Play Music (if not already playing)
+      const music = document.getElementById('backgroundMusic');
+      if (music.paused) {
+        music.play().catch(() => {
+          alert("Click anywhere to enable music playback!");
+        });
+      }
+    });
+
+    // Slideshow Logic
+    const slides = document.querySelectorAll('.slideshow img');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 2000); // Change slide every 2 seconds
+  </script>
+</body>
+</html>
